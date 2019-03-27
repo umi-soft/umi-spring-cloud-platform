@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>umi-spring-cloud-platform</artifactId>
+        <groupId>cn.umisoft.opensource</groupId>
+        <version>1.0.0-alpha</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>umi-micro-service</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- umi-spring-cloud-platform 内部组件依赖 -->
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-ribbon</artifactId>
+        </dependency>
+
+        <!-- 微服务依赖引入 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <modules>
+        <module>umi-system-admin</module>
+    </modules>
+
+</project>

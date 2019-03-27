@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.umisoft.opensource</groupId>
+        <artifactId>umi-parent-dependencies</artifactId>
+        <version>1.0.0-alpha</version>
+    </parent>
+
+    <groupId>cn.umisoft.opensource</groupId>
+    <artifactId>umi-spring-cloud-platform</artifactId>
+    <version>1.0.0-alpha</version>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-common-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-cloud-gateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-boot-starter-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-boot-starter-web-jwt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-boot-starter-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-boot-starter-ribbon</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.umisoft.opensource</groupId>
+                <artifactId>umi-spring-boot-starter-sentinel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>umi-auth</module>
+        <module>umi-common-utils</module>
+        <module>umi-config</module>
+        <module>umi-gateway</module>
+        <module>umi-micro-service</module>
+        <module>umi-spring-boot-starters</module>
+    </modules>
+
+</project>

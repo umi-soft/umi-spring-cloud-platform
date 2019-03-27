@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.umisoft.opensource</groupId>
+        <artifactId>umi-spring-cloud-platform</artifactId>
+        <version>1.0.0-alpha</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>umi-spring-boot-starters</artifactId>
+
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <!-- umi-spring-cloud-platform -->
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-common-utils</artifactId>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>umi-spring-boot-starter-redis</module>
+        <module>umi-spring-boot-starter-ribbon</module>
+        <module>umi-spring-boot-starter-sentinel</module>
+        <module>umi-spring-boot-starter-web</module>
+        <module>umi-spring-boot-starter-web-jwt</module>
+    </modules>
+
+
+</project>

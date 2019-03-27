@@ -1,0 +1,32 @@
+target
+.mvn
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### nacos ###
+umi-register-center/umi-nacos/bin/work
+umi-register-center/umi-nacos/data
+umi-register-center/umi-nacos/logs
+umi-register-center/umi-nacos/work
+umi-register-center/umi-nacos/derby.log

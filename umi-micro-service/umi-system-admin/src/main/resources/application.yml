@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: umi-system-admin-server
+  datasource:
+    druid:
+      url: ${umi-micro-service.umi-system-admin-server.datasource.url}
+      username: ${umi-micro-service.umi-system-admin-server.datasource.username}
+      password: ${umi-micro-service.umi-system-admin-server.datasource.password}
+      driver-class-name: ${umi-micro-service.umi-system-admin-server.datasource.driver-class-name}
