@@ -1,0 +1,12 @@
+server:
+  port: 25000
+spring:
+  application:
+    name: umi-gateway
+  cloud:
+    gateway:
+      discovery:
+          enabled: true
+          locator:
+            enabled: true
+            lower-case-service-id: true
