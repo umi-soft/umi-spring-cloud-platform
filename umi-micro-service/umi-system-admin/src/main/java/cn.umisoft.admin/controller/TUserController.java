@@ -10,11 +10,10 @@ import cn.umisoft.admin.service.ITUserService;
 
 import cn.umisoft.util.file.UmiFile;
 import cn.umisoft.web.controller.UmiTController;
-import cn.umisoft.web.util.ApiResult;
-import cn.umisoft.web.util.ApiResultWrapper;
+import cn.umisoft.util.api.ApiResult;
+import cn.umisoft.util.api.ApiResultWrapper;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;

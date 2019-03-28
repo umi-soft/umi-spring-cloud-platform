@@ -28,12 +28,6 @@
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
         </dependency>
-
-        <!-- umi-spring-cloud-platform 内部组件依赖 -->
-        <dependency>
-            <groupId>cn.umisoft.opensource</groupId>
-            <artifactId>umi-spring-boot-starter-web-jwt</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

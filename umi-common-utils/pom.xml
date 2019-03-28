@@ -11,5 +11,7 @@
 
     <artifactId>umi-common-utils</artifactId>
 
+    <dependencies>
 
+    </dependencies>
 </project>

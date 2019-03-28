@@ -5,8 +5,8 @@ import cn.umisoft.admin.entity.TRole;
 import cn.umisoft.admin.service.*;
 
 import cn.umisoft.web.controller.UmiTController;
-import cn.umisoft.web.util.ApiResult;
-import cn.umisoft.web.util.ApiResultWrapper;
+import cn.umisoft.util.api.ApiResult;
+import cn.umisoft.util.api.ApiResultWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

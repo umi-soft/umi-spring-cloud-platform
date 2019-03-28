@@ -30,7 +30,19 @@
         </dependency>
         <dependency>
             <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-web-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
             <artifactId>umi-spring-boot-starter-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-sentinel</artifactId>
         </dependency>
 
         <!-- 微服务依赖引入 -->

@@ -1,6 +1,5 @@
+
 spring:
-  profiles:
-    active: dev
   application:
     name: umi-system-admin-server
   datasource:
@@ -9,3 +8,7 @@ spring:
       username: ${umi-micro-service.umi-system-admin-server.datasource.username}
       password: ${umi-micro-service.umi-system-admin-server.datasource.password}
       driver-class-name: ${umi-micro-service.umi-system-admin-server.datasource.driver-class-name}
+logging:
+  level:
+    root: info
+    org.springframework.cloud.alibaba: debug
