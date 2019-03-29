@@ -9,4 +9,10 @@ spring:
       enabled: true
       transport:
         port: 8846
-        dashboard: localhost:8847
+        dashboard: 127.0.0.1:8847
+    gateway:
+      discovery:
+        enabled: true
+        locator:
+          enabled: true
+          lower-case-service-id: true

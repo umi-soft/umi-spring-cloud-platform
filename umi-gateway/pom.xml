@@ -18,15 +18,16 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- umi-spring-cloud-platform 内部组件依赖 -->
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-config</artifactId>
         </dependency>
     </dependencies>
 </project>

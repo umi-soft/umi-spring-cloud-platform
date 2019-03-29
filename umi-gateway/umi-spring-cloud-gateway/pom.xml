@@ -12,6 +12,19 @@
     <artifactId>umi-spring-cloud-gateway</artifactId>
 
     <dependencies>
+        <!-- 原则上不应该增加spring-boot-starter-web依赖关系 -->
+        <!-- 此处添加是为了确保全局umi-config中的配置属性能够在本工程中生效（bootstrap.yml） -->
+        <!-- 排出spring-boot-starter-tomcat是因为spring-cloud-gateway无法运行在servlet 容器中 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>

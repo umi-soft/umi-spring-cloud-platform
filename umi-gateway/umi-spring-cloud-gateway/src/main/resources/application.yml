@@ -3,10 +3,14 @@ server:
 spring:
   application:
     name: umi-gateway
-  cloud:
-    gateway:
-      discovery:
-          enabled: true
-          locator:
-            enabled: true
-            lower-case-service-id: true
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        cloud:
+          alibaba:
+            sentinel: debug
+            nacos: debug
+          gateway: debug
+
