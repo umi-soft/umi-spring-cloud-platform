@@ -55,11 +55,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.umisoft.opensource</groupId>
-                <artifactId>umi-spring-boot-starter-feign</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.umisoft.opensource</groupId>
                 <artifactId>umi-spring-boot-starter-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>

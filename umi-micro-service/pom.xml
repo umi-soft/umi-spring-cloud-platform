@@ -38,10 +38,6 @@
         </dependency>
         <dependency>
             <groupId>cn.umisoft.opensource</groupId>
-            <artifactId>umi-spring-boot-starter-feign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.umisoft.opensource</groupId>
             <artifactId>umi-spring-boot-starter-sentinel</artifactId>
         </dependency>
 

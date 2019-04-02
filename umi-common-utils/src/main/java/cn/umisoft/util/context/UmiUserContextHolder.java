@@ -1,5 +1,7 @@
 package cn.umisoft.util.context;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Map;
  * @author: hujie@umisoft.cn
  * @date: 2019/1/27 11:20 AM
  */
+@Slf4j
 public class UmiUserContextHolder {
 
     public static String USER_ID_KEY = "id";
@@ -40,11 +43,20 @@ public class UmiUserContextHolder {
     }
 
     public static String getContext() {
+        if (context.get() == null) {
+            log.info("UserContextHolder中没有上下文信息");
+            return null;
+        }
         return context.get().get(USER_ID_KEY);
     }
 
     public static String getJwtToken() {
+        if (context.get() == null) {
+            log.info("UserContextHolder中没有上下文信息");
+            return null;
+        }
         return context.get().get(JWT_KEY);
     }
+
 
 }

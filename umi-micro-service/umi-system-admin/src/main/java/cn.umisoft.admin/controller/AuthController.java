@@ -5,8 +5,8 @@ import cn.umisoft.admin.service.ITRoleService;
 import cn.umisoft.admin.entity.TUser;
 import cn.umisoft.admin.service.ITUserService;
 import cn.umisoft.util.context.UmiUserContextHolder;
-import cn.umisoft.web.jwt.UmiJWT;
-import cn.umisoft.web.properties.UmiJwtProperties;
+import cn.umisoft.util.jwt.JwtUtils;
+import cn.umisoft.util.jwt.JwtProperties;
 import cn.umisoft.util.api.ApiResult;
 import cn.umisoft.util.api.ApiResultWrapper;
 import com.alibaba.fastjson.JSONObject;
@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class AuthController {
 
     @Autowired
-    protected UmiJwtProperties properties;
+    protected JwtProperties properties;
 
     @Autowired
     protected ITUserService userService;
@@ -93,7 +93,8 @@ public class AuthController {
             if (user == null) {
                 result.put("result", "3");
             } else {
-                String jwt = UmiJWT.create((JSONObject)JSONObject.toJSON(user), properties.getSecret(), properties.getMinutes(), redisTemplate);
+                // 生成网关层对外使用的token
+                String jwt = JwtUtils.create((JSONObject)JSONObject.toJSON(user), properties.getGatewaySecret(), properties.getMinutes(), JwtUtils.GATEWAY_REDIS_USER_TOKEN_KEY_PREFIX, redisTemplate);
                 result.put("result", "1");
                 result.put("token", jwt);
             }
@@ -121,7 +122,7 @@ public class AuthController {
      */
     @GetMapping(value = "logout")
     public ApiResult logout(){
-        UmiJWT.logout(properties.getSecret(), redisTemplate);
+        JwtUtils.logout(redisTemplate);
         return ApiResultWrapper.success("退出登录成功");
     }
 

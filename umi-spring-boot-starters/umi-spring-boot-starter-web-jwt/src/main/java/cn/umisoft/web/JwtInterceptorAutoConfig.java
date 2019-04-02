@@ -1,7 +1,7 @@
 package cn.umisoft.web;
 
 import cn.umisoft.web.interceptor.JWTInterceptor;
-import cn.umisoft.web.properties.UmiJwtProperties;
+import cn.umisoft.util.jwt.JwtProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +15,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author: hujie@umisoft.cn
  * @date: 2019/3/26 10:22 PM
  */
-@EnableConfigurationProperties(UmiJwtProperties.class)
+@EnableConfigurationProperties(JwtProperties.class)
 @Configuration
 public class JwtInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
-    protected UmiJwtProperties properties;
+    protected JwtProperties properties;
 
     /**
      * @description: <p>JWT拦截器，便于组件注入</p>

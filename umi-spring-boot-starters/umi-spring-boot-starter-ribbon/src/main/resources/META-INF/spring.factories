@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 cn.umisoft.ribbon.RibbonAutoConfigure,\
-cn.umisoft.ribbon.FeignAutoConfigure,\
-cn.umisoft.ribbon.RestTemplateAutoConfigure
+cn.umisoft.ribbon.FeignAutoConfigure

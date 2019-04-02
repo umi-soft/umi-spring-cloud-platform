@@ -29,5 +29,17 @@
             <groupId>cn.umisoft.opensource</groupId>
             <artifactId>umi-config</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-common-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-ribbon</artifactId>
+        </dependency>
     </dependencies>
 </project>

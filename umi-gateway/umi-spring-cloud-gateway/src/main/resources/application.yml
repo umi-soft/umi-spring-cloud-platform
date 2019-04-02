@@ -13,4 +13,6 @@ logging:
             sentinel: debug
             nacos: debug
           gateway: debug
+umisoft:
+  gateway:
 

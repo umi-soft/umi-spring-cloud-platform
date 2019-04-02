@@ -1,4 +1,4 @@
-package cn.umisoft.web.properties;
+package cn.umisoft.util.jwt;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +12,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "umisoft.jwt")
 @Setter
 @Getter
-public class UmiJwtProperties {
+public class JwtProperties {
     String [] excludePathPatterns = {"/admin/auth/captcha", "/admin/auth/login"};
-    String secret = "umisoft.cn";
+    String serviceSecret = "umisoft.cn";
+    String gatewaySecret = "umisoft.cn";
     Integer minutes = 30;
 }

@@ -31,7 +31,6 @@
         <module>umi-spring-boot-starter-sentinel</module>
         <module>umi-spring-boot-starter-web</module>
         <module>umi-spring-boot-starter-web-jwt</module>
-        <module>umi-spring-boot-starter-feign</module>
     </modules>
 
 
