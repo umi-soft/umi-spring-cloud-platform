@@ -24,7 +24,7 @@ target
 /nbdist/
 /.nb-gradle/
 
-### nacos ###
+### alibaba nacos runtime ###
 umi-register-center/umi-nacos/bin/work
 umi-register-center/umi-nacos/data
 umi-register-center/umi-nacos/logs
