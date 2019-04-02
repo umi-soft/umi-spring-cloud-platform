@@ -89,6 +89,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         JSONObject permissions = getPlatformPermissions();
 
         log.info("进行资源访问权限判断");
+        // TODO 进行资源访问权限判断
 
         log.info("权限检查通过，防止没有网络隔离情况下，服务被直接代理访问，重新设置请求中token信息，设置为服务层token： " +  UmiUserContextHolder.getJwtToken());
         ServerHttpRequest token = serverWebExchange.getRequest().mutate().headers((httpHeaders) -> {
@@ -128,7 +129,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         String value = redisTemplate.opsForValue().get(REDIS_USER_ROLE_KEY_PREFIX + userId);
         if (value == null || "".equals(value.trim())) {
             log.info("调用服务，重新初始化redis中用户权限信息");
-
+            // TODO 调用服务，重新初始化redis中用户权限信息
             value = redisTemplate.opsForValue().get(REDIS_USER_ROLE_KEY_PREFIX + userId);
             log.info("正在重新读取Redis中的用户权限信息");
         }
@@ -144,7 +145,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         String value = redisTemplate.opsForValue().get(REDIS_PLATFORM_PERMISION_KEY);
         if (value == null || "".equals(value.trim())) {
             log.info("调用服务，重新初始化redis中服务权限信息");
-
+            // TODO 调用服务，重新初始化redis中服务权限信息
             log.info("正在重新读取Redis中的服务权限信息");
             value = redisTemplate.opsForValue().get(REDIS_PLATFORM_PERMISION_KEY);
         }

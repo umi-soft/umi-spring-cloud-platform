@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.umisoft.admin.mapper.TSecurityMapper">
+    <resultMap id="SecurityRoleDTO" type="cn.umisoft.admin.dto.SecurityRoleDTO">
+        <id column="ID" property="id" javaType="string" jdbcType="VARCHAR"></id>
+        <result column="SERVICE_ID" property="serviceId" javaType="string" jdbcType="VARCHAR"></result>
+        <result column="SECURITY_DEF" property="securityDef" javaType="string" jdbcType="VARCHAR"></result>
+        <collection property="roles" columnPrefix="ROLE_" ofType="cn.umisoft.admin.entity.TRole">
+            <!-- 一个ID字段就够了，目前不需要其他的字段 -->
+            <id column="ID" property="id" javaType="string" jdbcType="VARCHAR"></id>
+        </collection>
+    </resultMap>
+
+</mapper>

@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author hujie@umisoft.cn
  * @since 2019-01-13
  */
-@Mapper
 public interface TSecurityMapper extends UmiMapper<TSecurity> {
 
 }

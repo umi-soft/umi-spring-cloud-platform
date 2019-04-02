@@ -18,22 +18,18 @@ public class UmiUserContextHolder {
     private static ThreadLocal<Map<String, String>> context = new ThreadLocal<Map<String, String>>() {
         @Override
         protected Map<String, String> initialValue() {
-            // TODO Auto-generated method stub
             throw new RuntimeException("缺失用户信息");
         }
         @Override
         public Map<String, String> get() {
-            // TODO Auto-generated method stub
             return super.get();
         }
         @Override
         public void set(Map<String, String> context) {
-            // TODO Auto-generated method stub
             super.set(context);
         }
         @Override
         public void remove() {
-            // TODO Auto-generated method stub
             super.remove();
         }
     };

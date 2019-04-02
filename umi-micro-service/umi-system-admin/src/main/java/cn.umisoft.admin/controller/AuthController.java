@@ -3,6 +3,7 @@ package cn.umisoft.admin.controller;
 import cn.umisoft.admin.service.ITMenuService;
 import cn.umisoft.admin.service.ITRoleService;
 import cn.umisoft.admin.entity.TUser;
+import cn.umisoft.admin.service.ITSecurityService;
 import cn.umisoft.admin.service.ITUserService;
 import cn.umisoft.util.context.UmiUserContextHolder;
 import cn.umisoft.util.jwt.JwtUtils;
@@ -40,6 +41,8 @@ public class AuthController {
     protected JwtProperties properties;
 
     @Autowired
+    protected ITSecurityService securityService;
+    @Autowired
     protected ITUserService userService;
     @Autowired
     protected ITRoleService roleService;
@@ -73,7 +76,11 @@ public class AuthController {
         }
         return ApiResultWrapper.success("data:image/jpeg;base64," + Base64.encodeBase64String(os.toByteArray()));
     }
-
+    /**
+     * @description: <p>登录</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/2 2:15 PM
+     */
     @PostMapping(value = "login")
     public ApiResult login(HttpServletRequest request, String loginName, String password, String captcha, String key){
         Assert.notNull(captcha, "验证码不能为空");
@@ -101,6 +108,11 @@ public class AuthController {
         }
         return ApiResultWrapper.success(result);
     }
+    /**
+     * @description: <p>获取用户信息和用户的所有可用角色id列表</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/2 2:14 PM
+     */
     @GetMapping(value = "user-authorities")
     public ApiResult userAuthorities(){
         JSONObject result = new JSONObject();
@@ -111,8 +123,22 @@ public class AuthController {
 
         return ApiResultWrapper.success(result);
     }
+    /**
+     * @description: <p>获取所有前端路由和角色的映射关系</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/2 2:14 PM
+     */
     @GetMapping(value = "system-authorities")
     public ApiResult systemAuthorities(){
+        return ApiResultWrapper.success(this.menuService.findAllRouterRoles());
+    }
+    /**
+     * @description: <p>返回所有服务的安全资源与角色id的映射关系</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/2 2:14 PM
+     */
+    @GetMapping(value = "all-security-role-mapping")
+    public ApiResult securityRoleMapping(){
         return ApiResultWrapper.success(this.menuService.findAllRouterRoles());
     }
     /**
@@ -125,5 +151,4 @@ public class AuthController {
         JwtUtils.logout(redisTemplate);
         return ApiResultWrapper.success("退出登录成功");
     }
-
 }
