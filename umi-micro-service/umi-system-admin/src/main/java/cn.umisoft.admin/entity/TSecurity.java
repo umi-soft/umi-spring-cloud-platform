@@ -33,6 +33,13 @@ public class TSecurity extends UmiEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 所属微服务
+     */
+    @TableField("SERVICE_ID")
+    @Column(name = "SERVICE_ID")
+    private String serviceId;
+
+    /**
      * 安全资源定义，如url
      */
     @TableField("SECURITY_DEF")
