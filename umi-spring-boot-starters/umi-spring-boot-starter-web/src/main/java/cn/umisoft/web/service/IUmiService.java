@@ -12,6 +12,7 @@ import java.util.Set;
  * @author: hujie@umisoft.cn
  * @date: 2019/1/21 2:46 PM
  */
+// TODO 考虑自动构建一个 返回Map<String, T>的方法，key为T的id
 public interface IUmiService<T> extends IService<T> {
     /**
      * @description: <p>根据ID删除，支持记录最后修改人，反射获取Entity实例，通过deleteByIdWithFill删除</p>

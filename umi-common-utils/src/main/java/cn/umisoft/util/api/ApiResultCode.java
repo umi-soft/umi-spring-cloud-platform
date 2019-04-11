@@ -111,22 +111,22 @@ public enum ApiResultCode {
      */
     SENTINEL_BLOCK_EXCEPTION("8");
 
-    private String value;
+    private String key;
 
-    ApiResultCode(String value) {
-        this.value = value;
+    ApiResultCode(String key) {
+        this.key = key;
     }
 
-    public String getValue() {
-        return value;
+    public String getKey() {
+        return key;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
     public String toString(){
-        return this.value;
+        return this.key;
     }
 }

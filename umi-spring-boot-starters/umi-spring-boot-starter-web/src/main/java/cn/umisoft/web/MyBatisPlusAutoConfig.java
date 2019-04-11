@@ -29,7 +29,7 @@ public class MyBatisPlusAutoConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("cn.umisoft.*.*.mapper");
+        scannerConfigurer.setBasePackage("cn.umisoft.*.mapper");
         return scannerConfigurer;
     }
     /**

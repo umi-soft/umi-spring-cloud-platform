@@ -42,7 +42,10 @@ public class FeignAutoConfigure {
 
         @Override
         public void apply(RequestTemplate template) {
-            template.header(JwtUtils.HEAD_TOKEN_KEY, UmiUserContextHolder.getJwtToken());
+            String token = UmiUserContextHolder.getJwtToken();
+            template.header(JwtUtils.HEAD_TOKEN_KEY, token);
         }
     }
+
+    // TODO 目前没有通用ResponseInterceptor
 }

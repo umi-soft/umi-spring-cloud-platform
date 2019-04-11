@@ -24,7 +24,7 @@ public class SystemAdminStarter implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(SystemAdminStarter.class, args);
 	}
-
+	
 	/**
 	 * @description: <p>验证码生成配置bean</p>
 	 * @author: hujie@umisoft.cn

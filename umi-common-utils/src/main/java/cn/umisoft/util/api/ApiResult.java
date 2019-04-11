@@ -12,13 +12,13 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ApiResult {
+public class ApiResult<T> {
 
     private ApiResultCode code;
 
     private String message;
 
-    private Object data;
+    private T data;
 
     public ApiResult() {}
 
@@ -27,7 +27,7 @@ public class ApiResult {
         this.message = message;
     }
 
-    public ApiResult(ApiResultCode code, String message, Object data) {
+    public ApiResult(ApiResultCode code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -36,4 +36,6 @@ public class ApiResult {
     public String toJSONString() {
         return JSONObject.toJSONString(this, SerializerFeature.WriteEnumUsingToString);
     }
+
+
 }

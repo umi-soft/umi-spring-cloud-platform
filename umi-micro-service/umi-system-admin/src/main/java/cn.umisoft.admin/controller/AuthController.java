@@ -6,6 +6,7 @@ import cn.umisoft.admin.entity.TUser;
 import cn.umisoft.admin.service.ITSecurityService;
 import cn.umisoft.admin.service.ITUserService;
 import cn.umisoft.util.context.UmiUserContextHolder;
+import cn.umisoft.util.enums.RedisKeyEnum;
 import cn.umisoft.util.jwt.JwtUtils;
 import cn.umisoft.util.jwt.JwtProperties;
 import cn.umisoft.util.api.ApiResult;
@@ -26,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -137,9 +140,22 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "all-security-role-mapping")
+    @GetMapping(value = "all-platform-permissions")
     public ApiResult securityRoleMapping(){
-        return ApiResultWrapper.success(this.menuService.findAllRouterRoles());
+        Map<String, Set<String>> map = this.securityService.findAllSecurityRoleMapping();
+        redisTemplate.opsForValue().set(RedisKeyEnum.PLATFORM_PERMISSIONS_KEY.toString(), JSONObject.toJSONString(map));
+        return ApiResultWrapper.success();
+    }
+    /**
+     * @description: <p>获取用户信息和用户的所有可用角色id列表</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/2 2:14 PM
+     */
+    @GetMapping(value = "user-permissions")
+    public ApiResult userPermissions(){
+        Set<String> roles = roleService.findAllByCurrentUserId();
+        redisTemplate.opsForValue().set(RedisKeyEnum.USER_PERMISSIONS_KEY_PREFIX.toString() + UmiUserContextHolder.getContext(), JSONObject.toJSONString(roles));
+        return ApiResultWrapper.success();
     }
     /**
      * @description: <p>退出登录，cn.umisoft.admin.util.interceptor.JWTInterceptor 拦截器必须拦截token，确保分布式环境下，能够正常退出</p>

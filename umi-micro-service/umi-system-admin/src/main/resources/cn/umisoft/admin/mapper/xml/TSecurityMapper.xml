@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.umisoft.admin.mapper.TSecurityMapper">
+    <resultMap id="securityRoleDTOResultMap" type="cn.umisoft.admin.dto.SecurityRoleDTO">
+        <id column="ID" property="id" javaType="string" jdbcType="VARCHAR"></id>
+        <result column="SERVICE_ID" property="serviceId" javaType="string" jdbcType="VARCHAR"></result>
+        <result column="SECURITY_DEF" property="securityDef" javaType="string" jdbcType="VARCHAR"></result>
+        <collection property="roles" columnPrefix="ROLE_" ofType="java.lang.String" javaType="java.util.HashSet">
+            <!-- 一个ID字段就够了，目前不需要其他的字段 -->
+            <id column="ID" javaType="string" jdbcType="VARCHAR"></id>
+        </collection>
+    </resultMap>
+
+    <select id="selectAllSecurityRoleDTO" resultMap="securityRoleDTOResultMap">
+        SELECT
+          DISTINCT
+          T_SECURITY.ID,
+          T_SECURITY.SERVICE_ID,
+          T_SECURITY.SECURITY_DEF,
+          R_MENU_ROLE.ROLE_ID
+        FROM
+          T_SECURITY LEFT JOIN R_MENU_SECURITY ON T_SECURITY.ID = R_MENU_SECURITY.SECURITY_ID
+          LEFT JOIN R_MENU_ROLE ON R_MENU_SECURITY.MENU_ID = R_MENU_ROLE.MENU_ID
+        WHERE
+          T_SECURITY.DELETED = '0'
+          AND R_MENU_SECURITY.DELETED = '0'
+          AND R_MENU_ROLE.DELETED = '0'
+          AND R_MENU_ROLE.ROLE_ID IN (
+            SELECT ID FROM T_ROLE WHERE T_ROLE.DELETED = '0'
+          )
+    </select>
+</mapper>

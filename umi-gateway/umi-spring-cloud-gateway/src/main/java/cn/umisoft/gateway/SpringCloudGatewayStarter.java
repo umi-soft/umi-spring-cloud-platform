@@ -1,6 +1,5 @@
 package cn.umisoft.gateway;
 
-import cn.umisoft.gateway.config.SpringCloudGatewayProperties;
 import cn.umisoft.util.jwt.JwtProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,12 +9,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableConfigurationProperties({ SpringCloudGatewayProperties.class, JwtProperties.class })
-@EnableFeignClients({"cn.umisoft.gateway.feign"})
-public class SpringCloudGatewayApplication {
+@EnableConfigurationProperties({ JwtProperties.class })
+@EnableFeignClients(basePackages = {"cn.umisoft.gateway.remote"})
+public class SpringCloudGatewayStarter {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudGatewayApplication.class, args);
+        SpringApplication.run(SpringCloudGatewayStarter.class, args);
     }
 
 }

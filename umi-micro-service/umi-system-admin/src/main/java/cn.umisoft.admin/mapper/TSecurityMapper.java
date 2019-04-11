@@ -1,8 +1,10 @@
 package cn.umisoft.admin.mapper;
 
+import cn.umisoft.admin.dto.SecurityRoleDTO;
 import cn.umisoft.admin.entity.TSecurity;
 import cn.umisoft.web.mapper.UmiMapper;
-import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-01-13
  */
 public interface TSecurityMapper extends UmiMapper<TSecurity> {
-
+    List<SecurityRoleDTO> selectAllSecurityRoleDTO();
 }
