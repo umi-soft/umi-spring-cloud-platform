@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public interface ITSecurityService extends IUmiService<TSecurity> {
     /**
-     * @description: <p>初始化服务controller信息</p>
+     * @description: <p>初始化服务controller信息,仅仅涉及系统内置的，不包含用户自定义的</p>
      * @author: hujie@umisoft.cn
      * @date: 2019/4/14 3:52 PM
      */

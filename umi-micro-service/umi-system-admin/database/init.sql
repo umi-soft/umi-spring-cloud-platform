@@ -264,6 +264,7 @@ CREATE TABLE `T_SECURITY` (
   `DELETED` int(1) NOT NULL COMMENT '是否删除',
   `SERVICE_ID` varchar(255) NOT NULL COMMENT '服务ID标识',
   `SECURITY_DEF` varchar(255) NOT NULL COMMENT '安全资源标识',
+  `FROM_SYSTEM` int(1) NOT NULL COMMENT '是否为系统内置，系统内置资源不可编辑，用户自定义的可自由编辑',
   `NAME` varchar(255) DEFAULT NULL COMMENT '名称',
   `REMARK` varchar(255) DEFAULT NULL COMMENT '描述',
   `CREATED_BY` varchar(255) NOT NULL COMMENT '创建人',

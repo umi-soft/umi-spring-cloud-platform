@@ -46,7 +46,12 @@ public class TSecurity extends UmiEntity implements Serializable {
     @TableField("SECURITY_DEF")
     @Column(name = "SECURITY_DEF")
     private String securityDef;
-
+    /**
+     * 是否为系统内置，系统内置资源不可编辑，用户自定义的可自由编辑
+     */
+    @TableField("FROM_SYSTEM")
+    @Column(name = "FROM_SYSTEM")
+    private Integer fromSystem;
     /**
      * 名称
      */

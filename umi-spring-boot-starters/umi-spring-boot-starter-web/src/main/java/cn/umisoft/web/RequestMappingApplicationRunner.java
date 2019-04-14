@@ -2,6 +2,7 @@ package cn.umisoft.web;
 
 import cn.umisoft.feign.remote.SystemAdminAPI;
 import cn.umisoft.util.context.UmiUserContextHolder;
+import cn.umisoft.util.enums.UmiBoolean;
 import cn.umisoft.util.jwt.JwtProperties;
 import cn.umisoft.util.jwt.JwtUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -27,6 +28,8 @@ public class RequestMappingApplicationRunner implements ApplicationRunner {
 
     @Value("${spring.application.name}")
     private String serviceName;
+    @Value("${umisoft.init-micro-service-security}")
+    private boolean initMicroServiceSecurity;
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
@@ -40,6 +43,7 @@ public class RequestMappingApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        if (!initMicroServiceSecurity) { return; }
         Iterator<?> iterator = this.handlerMapping.getHandlerMethods().entrySet().iterator();
         Map<String, Map<String, String>> authoritieMap = new HashMap<String, Map<String, String>>();
         while(iterator.hasNext()){
@@ -51,6 +55,7 @@ public class RequestMappingApplicationRunner implements ApplicationRunner {
                 map.put("id", id);
                 map.put("serviceId", serviceName);
                 map.put("securityDef", p);
+                map.put("fromSystem", UmiBoolean.TRUE.toString());
                 map.put("name", mappingInfo.getName());
                 map.put("remark", mappingInfo.toString());
                 authoritieMap.put(id, map);
@@ -67,7 +72,5 @@ public class RequestMappingApplicationRunner implements ApplicationRunner {
         UmiUserContextHolder.setContext(map);
         systemAdminAPI.initMicroServiceSecurity(authoritieMap.values().stream().collect(Collectors.toList()));
         JwtUtils.logout(redisTemplate);
-
-        // TODO 增加 isSystem 字段，不允许修改系统内置的资源，前端页面也需要修改，详见前端TODO
     }
 }
