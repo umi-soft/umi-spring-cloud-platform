@@ -12,3 +12,4 @@ logging:
   level:
     root: info
     org.springframework.cloud.alibaba: debug
+    org.springframework.web: debug

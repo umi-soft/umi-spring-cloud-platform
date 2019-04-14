@@ -18,6 +18,12 @@ import java.util.Set;
  */
 public interface ITSecurityService extends IUmiService<TSecurity> {
     /**
+     * @description: <p>初始化服务controller信息</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/14 3:52 PM
+     */
+    void initAuthorities(List<TSecurity> entities);
+    /**
      * @description: <p>根据路由菜单ID，查看该路由菜单直接分配的所有后端资源权限列表</p>
      * @author: hujie@umisoft.cn
      * @date: 2019/3/7 12:11 AM

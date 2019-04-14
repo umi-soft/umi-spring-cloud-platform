@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2019/2/19 10:37 PM
  */
 @RestController
-@RequestMapping("/admin/auth")
+@RequestMapping(value = "/admin/auth", name = "权限控制器")
 public class AuthController {
 
     @Autowired
@@ -84,7 +84,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:15 PM
      */
-    @PostMapping(value = "login")
+    @PostMapping(value = "login", name = "用户名密码登录")
     public ApiResult login(HttpServletRequest request, String loginName, String password, String captcha, String key){
         Assert.notNull(captcha, "验证码不能为空");
         Assert.notNull(loginName, "用户名不能为空");

@@ -1,10 +1,11 @@
-package cn.umisoft.ribbon;
+package cn.umisoft.feign;
 
 import cn.umisoft.util.context.UmiUserContextHolder;
 import cn.umisoft.util.jwt.JwtUtils;
 import feign.Logger;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @date: 2019/3/26 4:49 PM
  */
 @Configuration
+@EnableFeignClients(basePackages = {"cn.umisoft.feign.remote"})
 public class FeignAutoConfigure {
 
     /**

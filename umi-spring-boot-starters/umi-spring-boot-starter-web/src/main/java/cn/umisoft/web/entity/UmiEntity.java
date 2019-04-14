@@ -25,6 +25,9 @@ public class UmiEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public UmiEntity() {}
+
+    public UmiEntity(String id) { this.id = id; }
     /**
      * 主键
      */

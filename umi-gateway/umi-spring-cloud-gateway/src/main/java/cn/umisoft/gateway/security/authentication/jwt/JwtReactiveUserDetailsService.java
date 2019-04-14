@@ -1,6 +1,6 @@
 package cn.umisoft.gateway.security.authentication.jwt;
 
-import cn.umisoft.gateway.remote.SystemAdminAPI;
+import cn.umisoft.feign.remote.SystemAdminAPI;
 import cn.umisoft.util.enums.RedisKeyEnum;
 import com.alibaba.fastjson.JSONArray;
 import lombok.extern.slf4j.Slf4j;

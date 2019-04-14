@@ -31,7 +31,8 @@ import javax.persistence.Table;
 public class TSecurity extends UmiEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    public TSecurity() {}
+    public TSecurity(String id) { super(id); }
     /**
      * 所属微服务
      */

@@ -17,10 +17,6 @@
             <groupId>cn.umisoft.opensource</groupId>
             <artifactId>umi-spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.umisoft.opensource</groupId>
-            <artifactId>umi-spring-boot-starter-redis</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

@@ -1,6 +1,6 @@
 package cn.umisoft.gateway.security;
 
-import cn.umisoft.gateway.remote.SystemAdminAPI;
+import cn.umisoft.feign.remote.SystemAdminAPI;
 import cn.umisoft.util.enums.RedisKeyEnum;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.access.SecurityConfig;
-import reactor.core.publisher.Flux;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 public class RedisMemorySecurityMetadataSource {
+    final static AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -26,13 +27,16 @@ public class RedisMemorySecurityMetadataSource {
 
     private Map<String, Set<SecurityConfig>> authorityMap = null;
 
-    public Set<String> getSecuritySet(String key) {
+    public Set<String> getSecuritySet(String url) {
         initResourceMap(false);
-        Set<SecurityConfig> permissions = this.authorityMap.get(key);
-        Set<String> roles = new HashSet<String>();
-        if (permissions != null) {
-            roles = Stream.of(permissions).flatMap(p -> p.stream()).map(p -> p.getAttribute()).distinct().collect(Collectors.toSet());
-        }
+        Set<String> roles = Stream.of(this.authorityMap.keySet())
+                .flatMap(k -> k.stream())
+                .filter(k -> pathMatcher.match(k, url))
+                .distinct()
+                .flatMap(k -> this.authorityMap.get(k).stream())
+                .map(p -> p.getAttribute())
+                .distinct()
+                .collect(Collectors.toSet());
         // 确保admin角色可以访问所有API
         roles.add("admin");
         return roles;

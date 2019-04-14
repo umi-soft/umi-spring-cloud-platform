@@ -28,10 +28,13 @@
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.umisoft.opensource</groupId>
-            <artifactId>umi-config</artifactId>
+            <artifactId>umi-spring-boot-starter-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.umisoft.opensource</groupId>
+            <artifactId>umi-spring-boot-starter-ribbon</artifactId>
         </dependency>
     </dependencies>
 </project>

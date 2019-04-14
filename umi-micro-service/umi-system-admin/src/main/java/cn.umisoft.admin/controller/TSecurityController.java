@@ -6,14 +6,13 @@ import cn.umisoft.admin.service.ITSecurityService;
 
 import cn.umisoft.util.api.ApiResult;
 import cn.umisoft.util.api.ApiResultWrapper;
-import cn.umisoft.util.context.UmiUserContextHolder;
 import cn.umisoft.util.enums.MicroServiceEnum;
 import cn.umisoft.web.controller.UmiTController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -42,4 +41,11 @@ public class TSecurityController extends UmiTController<ITSecurityService, TSecu
         }
         return ApiResultWrapper.success(result);
     }
+
+    @PostMapping(value = "init-micro-service-security")
+    public ApiResult initAuthorities(@RequestBody List<TSecurity> entities){
+        this.baseService.initAuthorities(entities);
+        return ApiResultWrapper.success();
+    }
 }
+
