@@ -1,19 +1,23 @@
 package cn.umisoft.web.service;
 
+import cn.umisoft.web.entity.UmiEntity;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @description:
  * @author: hujie@umisoft.cn
  * @date: 2019/1/21 2:46 PM
  */
-// TODO 考虑自动构建一个 返回Map<String, T>的方法，key为T的id
-public interface IUmiService<T> extends IService<T> {
+public interface IUmiService<T extends UmiEntity> extends IService<T> {
     /**
      * @description: <p>根据ID删除，支持记录最后修改人，反射获取Entity实例，通过deleteByIdWithFill删除</p>
      *               <p>覆盖父类方法</p>
@@ -59,4 +63,35 @@ public interface IUmiService<T> extends IService<T> {
      * @return: boolean
      */
     boolean resetByMap(List<T> entities, Map<String, Set<Object>> mappingInfo, int batchSize);
+    // TODO 将mapIdEntity 和 mapIdEntityMap功能迁移给 umi-spring-boot-admin 工程
+    /**
+     * @description: <p>根据动态查询条件，查询符合条件的map数据</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/15 1:22 PM
+     * @param: Wrapper<T> queryWrapper
+     * @return: 返回符合条件的Map数据，其中key为id，value为实体对象结构
+     */
+    default Map<String, T> mapIdEntity(Wrapper<T> queryWrapper) {
+        Map<String, T> results = new HashMap<String, T>();
+        this.getBaseMapper().selectList(queryWrapper).stream().filter(e -> {
+            results.put(e.getId(), e);
+            return true;
+        }).collect(Collectors.toList());
+        return results;
+    }
+    /**
+     * @description: <p>根据动态查询条件，查询符合条件的map数据</p>
+     * @author: hujie@umisoft.cn
+     * @date: 2019/4/15 1:22 PM
+     * @param: Wrapper<T> queryWrapper
+     * @return: 返回符合条件的Map数据，其中key为id，value为实体对象map结构
+     */
+    default Map<String, Map<String, Object>> mapIdEntityMap(Wrapper<T> queryWrapper) {
+        Map<String, Map<String, Object>> results = new HashMap<String, Map<String, Object>>();
+        this.getBaseMapper().selectMaps(queryWrapper).stream().filter(e -> {
+            results.put((String)e.get("id"), e);
+            return true;
+        }).collect(Collectors.toList());
+        return results;
+    }
 }
