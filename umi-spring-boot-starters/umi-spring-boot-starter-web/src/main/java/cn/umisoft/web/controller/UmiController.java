@@ -1,6 +1,7 @@
 package cn.umisoft.web.controller;
 
 import cn.umisoft.web.entity.IEntityHelper;
+import cn.umisoft.web.entity.UmiEntity;
 import cn.umisoft.web.service.IUmiService;
 import cn.umisoft.web.util.UmiQueryCondition;
 import cn.umisoft.web.util.UmiQueryConditionTypeEnum;
@@ -19,7 +20,7 @@ import java.util.Set;
  * @author: hujie@umisoft.cn
  * @date: 2019/3/26 11:57 PM
  */
-public class UmiController<S extends IUmiService<T>, T> implements IEntityHelper<T> {
+public class UmiController<S extends IUmiService<T>, T extends UmiEntity> implements IEntityHelper<T> {
 
     /**
      * @description: <p>请务必在子类中填充完整的映射字段</p>
