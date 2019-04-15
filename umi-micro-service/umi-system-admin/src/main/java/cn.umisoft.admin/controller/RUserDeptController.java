@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-01-14
  */
 @RestController
-@RequestMapping("/admin/user-dept")
+@RequestMapping(value = "/admin/user-dept", name = "用户-部门中间表控制器")
 public class RUserDeptController extends UmiRController<IRUserDeptService, RUserDept> {
     public RUserDeptController() {
         this.mappingFields.add("userId");

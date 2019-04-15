@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/menu")
+@RequestMapping(value = "/admin/menu", name = "前端路由表控制器")
 public class TMenuController extends UmiTController<ITMenuService, TMenu> {
 
     @Autowired
@@ -31,17 +31,17 @@ public class TMenuController extends UmiTController<ITMenuService, TMenu> {
     @Autowired
     protected ITRoleService roleService;
 
-    @PostMapping(value = "sync")
+    @PostMapping(value = "sync", name = "批量同步前端路由表信息")
     public ApiResult sync(HttpServletRequest request, @RequestBody List<TMenu> menus) {
         return ApiResultWrapper.success(this.baseService.syncMenus(menus));
     }
 
-    @GetMapping(value = "all-securities")
+    @GetMapping(value = "all-securities", name = "根据路由ID，查询该路由直接关联的所有后端服务API列表信息")
     public ApiResult allSecurities(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.securityService.findAllByMenuId(id));
     }
 
-    @GetMapping(value = "all-roles")
+    @GetMapping(value = "all-roles", name = "根据路由ID，查询该路由直接关联的角色列表")
     public ApiResult allRoles(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.roleService.findAllByMenuId(id));
     }

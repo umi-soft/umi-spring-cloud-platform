@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-01-14
  */
 @RestController
-@RequestMapping("/admin/menu-role")
+@RequestMapping(value = "/admin/menu-role", name = "菜单-角色中间表控制器")
 public class RMenuRoleController extends UmiRController<IRMenuRoleService, RMenuRole> {
     public RMenuRoleController() {
         this.mappingFields.add("menuId");

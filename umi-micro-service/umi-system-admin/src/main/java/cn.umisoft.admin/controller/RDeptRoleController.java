@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-01-19
  */
 @RestController
-@RequestMapping("/admin/dept-role")
+@RequestMapping(value = "/admin/dept-role", name = "部门-角色中间表控制器")
 public class RDeptRoleController extends UmiRController<IRDeptRoleService, RDeptRole> {
     public RDeptRoleController() {
         this.mappingFields.add("deptId");

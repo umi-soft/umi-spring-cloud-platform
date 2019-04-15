@@ -28,7 +28,7 @@ public class UmiRController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: entity
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "add")
+    @PostMapping(value = "add", name="单个新增映射关系")
     public ApiResult add(HttpServletRequest request, T entity){
         checkMappingFields(entity);
         baseService.save(entity);
@@ -43,7 +43,7 @@ public class UmiRController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: entities
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping("reset")
+    @PostMapping(value = "reset", name="批量重置映射关系")
     public ApiResult resetAdd(HttpServletRequest request, @RequestBody List<T> entities){
         Map<String, Set<Object>> mappingInfo = new HashMap<String, Set<Object>>();
         for (T entity : entities) {
@@ -66,7 +66,7 @@ public class UmiRController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: mapping
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "del-by-entity-mapping")
+    @PostMapping(value = "del-by-entity-mapping", name="根据映射键值对删除映射关系")
     public ApiResult delByEntityMapping(HttpServletRequest request, T entity){
         Map<String, Object> mapping = new HashMap<String, Object>();
         for (String mappingField: mappingFields) {

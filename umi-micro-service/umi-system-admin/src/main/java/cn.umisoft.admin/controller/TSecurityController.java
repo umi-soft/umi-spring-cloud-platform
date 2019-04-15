@@ -23,14 +23,14 @@ import java.util.List;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/security")
+@RequestMapping(value = "/admin/security", name = "服务API资源表控制器")
 public class TSecurityController extends UmiTController<ITSecurityService, TSecurity> {
     /**
      * @description: <p>获取所有的服务信息</p>
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "query-all-micro-service")
+    @GetMapping(value = "query-all-micro-service", name = "查询所有的服务列表")
     public ApiResult userAuthorities(){
         JSONArray result = new JSONArray();
         for (MicroServiceEnum microService : MicroServiceEnum.values()) {
@@ -42,7 +42,7 @@ public class TSecurityController extends UmiTController<ITSecurityService, TSecu
         return ApiResultWrapper.success(result);
     }
 
-    @PostMapping(value = "init-micro-service-security")
+    @PostMapping(value = "init-micro-service-security", name = "初始化某服务的所有系统内置的API权限资源信息")
     public ApiResult initAuthorities(@RequestBody List<TSecurity> entities){
         this.baseService.initAuthorities(entities);
         return ApiResultWrapper.success();

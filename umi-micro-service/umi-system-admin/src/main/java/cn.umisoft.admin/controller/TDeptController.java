@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/dept")
+@RequestMapping(value = "/admin/dept", name = "部门表控制器")
 public class TDeptController extends UmiTController<ITDeptService, TDept> {
 
     @Autowired
@@ -32,17 +32,17 @@ public class TDeptController extends UmiTController<ITDeptService, TDept> {
     @Autowired
     protected ITRoleService roleService;
 
-    @GetMapping(value = "query-all-tree")
+    @GetMapping(value = "query-all-tree", name = "根据ID查询符合条件的tree结构数据")
     public ApiResult queryAllTree(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.baseService.queryTree(id));
     }
 
-    @GetMapping(value = "all-users")
+    @GetMapping(value = "all-users", name = "根据部门ID获取部门下直接关联的所有可用用户")
     public ApiResult allUsers(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.userService.findAllByDeptId(id));
     }
 
-    @GetMapping(value = "all-roles")
+    @GetMapping(value = "all-roles", name = "根据部门ID获取部门下直接关联的所有可用角色")
     public ApiResult allRoles(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.roleService.findAllByDeptId(id));
     }

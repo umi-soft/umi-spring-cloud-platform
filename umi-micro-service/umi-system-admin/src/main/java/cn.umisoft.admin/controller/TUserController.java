@@ -35,7 +35,7 @@ import java.util.UUID;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping(value = "/admin/user", name = "用户信息控制器")
 public class TUserController extends UmiTController<ITUserService, TUser> {
 
     @Autowired
@@ -59,7 +59,7 @@ public class TUserController extends UmiTController<ITUserService, TUser> {
      * @return: ApiResult
      */
     @Override
-    @PostMapping(value = "add")
+    @PostMapping(value = "add", name = "单个新增")
     public ApiResult add(HttpServletRequest request, TUser entity) {
         entity.setPassword(DigestUtils.md5DigestAsHex(entity.getPassword().getBytes()));
         return super.add(request, entity);
@@ -74,13 +74,13 @@ public class TUserController extends UmiTController<ITUserService, TUser> {
      * @return: ApiResult
      */
     @Override
-    @PostMapping(value = "edit")
+    @PostMapping(value = "edit", name = "根据ID更新用户基础信息")
     public ApiResult edit(HttpServletRequest request, TUser entity) {
         entity.setPassword(null);
         return super.edit(request, entity);
     }
 
-    @PostMapping(value = "check-login-name")
+    @PostMapping(value = "check-login-name", name = "判断用户登录名是否已存在")
     public ApiResult checkLoginName(HttpServletRequest request, String id, String loginName) {
         List<TUser> users = this.baseService.findAllByLoginName(loginName);
         JSONObject result = new JSONObject();
@@ -94,7 +94,7 @@ public class TUserController extends UmiTController<ITUserService, TUser> {
         return ApiResultWrapper.success(result);
     }
 
-    @PostMapping(value = "edit-password")
+    @PostMapping(value = "edit-password", name = "根据ID修改用户密码")
     public ApiResult editPassword(HttpServletRequest request, String id, String password) {
         return ApiResultWrapper.success(this.baseService.updatePasswordById(id, password));
     }
@@ -119,28 +119,28 @@ public class TUserController extends UmiTController<ITUserService, TUser> {
         return ApiResultWrapper.success(result);
     }
 
-    @GetMapping(value = "avatar")
+    @GetMapping(value = "avatar", name = "查看用户肖像")
     @ResponseBody
     public ResponseEntity<?> getAvatar(String avatar) {
         return ResponseEntity.ok(resourceLoader.getResource("file:" + UmiFile.addSeparator(properties.getAvatarDiskPrefixPath()) + avatar));
     }
 
-    @GetMapping(value = "all-roles")
+    @GetMapping(value = "all-roles", name = "根据用户ID，查询该用户直接关联的角色信息")
     public ApiResult allRoles(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.roleService.findAllByUserId(id));
     }
 
-    @GetMapping(value = "all-depts")
+    @GetMapping(value = "all-depts", name = "根据用户ID，查询该用户直接关联的部门信息")
     public ApiResult allDepts(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.deptService.findAllByUserId(id));
     }
 
-    @GetMapping(value = "all-user-groups")
+    @GetMapping(value = "all-user-groups", name = "根据用户ID，查询该用户直接关联的用户组信息")
     public ApiResult allGroups(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.groupService.findAllUserGroupByUserId(id));
     }
 
-    @GetMapping(value = "all-role-groups")
+    @GetMapping(value = "all-role-groups", name = "根据用户ID，查询该用户直接关联的角色组信息")
     public ApiResult allRoleGroups(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.groupService.findAllRoleGroupByUserId(id));
     }

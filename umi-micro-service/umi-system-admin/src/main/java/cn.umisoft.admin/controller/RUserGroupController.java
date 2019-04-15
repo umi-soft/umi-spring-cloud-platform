@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-01-14
  */
 @RestController
-@RequestMapping("/admin/user-group")
+@RequestMapping(value = "/admin/user-group", name = "用户-用户组中间表控制器")
 public class RUserGroupController extends UmiRController<IRUserGroupService, RUserGroup> {
     public RUserGroupController() {
         this.mappingFields.add("userId");

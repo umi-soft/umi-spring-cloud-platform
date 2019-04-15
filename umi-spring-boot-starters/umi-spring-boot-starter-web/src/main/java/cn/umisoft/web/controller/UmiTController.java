@@ -32,7 +32,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: entity
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "add")
+    @PostMapping(value = "add", name="单个新增")
     public ApiResult add(HttpServletRequest request, T entity){
         baseService.save(entity);
         return ApiResultWrapper.success(entity);
@@ -45,7 +45,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: id
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "del")
+    @PostMapping(value = "del", name="根据ID删除")
     public ApiResult del(HttpServletRequest request, String id){
         baseService.removeById(id);
         return ApiResultWrapper.success();
@@ -61,7 +61,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      *         <p>"" --> ""</p>
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "edit")
+    @PostMapping(value = "edit", name="根据ID编辑")
     public ApiResult edit(HttpServletRequest request, T entity){
         entity.setCreatedBy(null);
         entity.setCreatedDate(null);
@@ -76,7 +76,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: id
      * @return: ApiResult，数据结构满足开发规范
      */
-    @GetMapping(value = "query-by-id")
+    @GetMapping(value = "query-by-id", name="根据ID查询独立实体")
     public ApiResult queryById(HttpServletRequest request, String id){
         return ApiResultWrapper.success(baseService.getById(id));
     }
@@ -88,7 +88,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: queryConditions
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "query-all")
+    @PostMapping(value = "query-all", name="根据动态SQL条件查询独立实体[非分页]")
     public ApiResult queryAll(HttpServletRequest request, @RequestBody(required = false) List<UmiQueryCondition> queryConditions){
         return ApiResultWrapper.success(baseService.list(queryWrapperBuilder(queryConditions)));
     }
@@ -100,7 +100,7 @@ public class UmiTController<S extends IUmiService<T>, T extends UmiEntity> exten
      * @param: page
      * @return: ApiResult，数据结构满足开发规范
      */
-    @PostMapping(value = "query-page")
+    @PostMapping(value = "query-page", name="根据动态SQL条件查询独立实体[分页]")
     public ApiResult queryPage(HttpServletRequest request, @RequestBody UmiPage<T> page){
         return ApiResultWrapper.success(baseService.page(page, queryWrapperBuilder(page.getFilters())));
     }

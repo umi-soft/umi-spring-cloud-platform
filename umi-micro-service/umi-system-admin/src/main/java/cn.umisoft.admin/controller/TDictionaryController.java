@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/dictionary")
+@RequestMapping(value = "/admin/dictionary", name = "字典（或字典分类）表控制器")
 public class TDictionaryController extends UmiTController<ITDictionaryService, TDictionary> {
 
 }

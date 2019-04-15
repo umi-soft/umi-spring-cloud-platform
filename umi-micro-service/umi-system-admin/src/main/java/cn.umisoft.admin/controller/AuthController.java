@@ -31,13 +31,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+// TODO 将name属性同步给umi-spring-boot-admin工程
+// TODO 将系统内置API自动入库功能迁移给umi-spring-boot-admin工程
 /**
  * @description: <p>认证相关控制器</p>
  * @author: hujie@umisoft.cn
  * @date: 2019/2/19 10:37 PM
  */
 @RestController
-@RequestMapping(value = "/admin/auth", name = "权限控制器")
+@RequestMapping(value = "/admin/auth", name = "登录与权限加载控制器")
 public class AuthController {
 
     @Autowired
@@ -63,7 +65,7 @@ public class AuthController {
      * @param: 可指定key值
      * @return:
      */
-    @GetMapping(value = "captcha")
+    @GetMapping(value = "captcha", name = "生成验证码（无安全限制）")
     public ApiResult captcha(HttpServletRequest request, String key) {
         if (key == null || "".equals(key.trim())) {
             key = request.getSession(true).getId();
@@ -80,11 +82,11 @@ public class AuthController {
         return ApiResultWrapper.success("data:image/jpeg;base64," + Base64.encodeBase64String(os.toByteArray()));
     }
     /**
-     * @description: <p>登录</p>
+     * @description: <p>登录，验证码支持携带自定义的key值，便于分布式环境使用</p>
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:15 PM
      */
-    @PostMapping(value = "login", name = "用户名密码登录")
+    @PostMapping(value = "login", name = "用户名+密码+验证码登录")
     public ApiResult login(HttpServletRequest request, String loginName, String password, String captcha, String key){
         Assert.notNull(captcha, "验证码不能为空");
         Assert.notNull(loginName, "用户名不能为空");
@@ -116,7 +118,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "user-authorities")
+    @GetMapping(value = "user-authorities", name = "获取用户信息和用户角色ID列表")
     public ApiResult userAuthorities(){
         JSONObject result = new JSONObject();
         String id = UmiUserContextHolder.getContext();
@@ -131,7 +133,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "system-authorities")
+    @GetMapping(value = "system-authorities", name = "获取系统中所有的前端路由与角色映射关系")
     public ApiResult systemAuthorities(){
         return ApiResultWrapper.success(this.menuService.findAllRouterRoles());
     }
@@ -140,7 +142,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "all-platform-permissions")
+    @GetMapping(value = "all-platform-permissions", name = "将所有服务API级别权限控制信息加载至redis")
     public ApiResult securityRoleMapping(){
         Map<String, Set<String>> map = this.securityService.findAllSecurityRoleMapping();
         redisTemplate.opsForValue().set(RedisKeyEnum.PLATFORM_PERMISSIONS_KEY.toString(), JSONObject.toJSONString(map));
@@ -151,7 +153,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/4/2 2:14 PM
      */
-    @GetMapping(value = "user-permissions")
+    @GetMapping(value = "user-permissions", name = "将当前用户的权限信息加载至redis")
     public ApiResult userPermissions(){
         Set<String> roles = roleService.findAllByCurrentUserId();
         redisTemplate.opsForValue().set(RedisKeyEnum.USER_PERMISSIONS_KEY_PREFIX.toString() + UmiUserContextHolder.getContext(), JSONObject.toJSONString(roles));
@@ -162,7 +164,7 @@ public class AuthController {
      * @author: hujie@umisoft.cn
      * @date: 2019/2/22 8:12 AM
      */
-    @GetMapping(value = "logout")
+    @GetMapping(value = "logout", name = "退出登录")
     public ApiResult logout(){
         JwtUtils.logout(redisTemplate);
         return ApiResultWrapper.success("退出登录成功");

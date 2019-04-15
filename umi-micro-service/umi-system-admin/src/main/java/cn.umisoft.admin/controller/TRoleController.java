@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2019-01-13
  */
 @RestController
-@RequestMapping("/admin/role/")
+@RequestMapping(value = "/admin/role/", name = "角色表控制器")
 public class TRoleController extends UmiTController<ITRoleService, TRole> {
 
     @Autowired
@@ -35,22 +35,22 @@ public class TRoleController extends UmiTController<ITRoleService, TRole> {
     @Autowired
     protected ITGroupService groupService;
 
-    @GetMapping(value = "all-menus")
+    @GetMapping(value = "all-menus", name = "根据角色ID，查询该角色直接关联的所有前端路由信息")
     public ApiResult allMenus(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.menuService.findAllByRoleId(id));
     }
 
-    @GetMapping(value = "all-users")
+    @GetMapping(value = "all-users", name = "根据角色ID，查询该角色直接关联的所有用户信息")
     public ApiResult allUsers(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.userService.findAllByRoleId(id));
     }
 
-    @GetMapping(value = "all-depts")
+    @GetMapping(value = "all-depts", name = "根据角色ID，查询该角色直接关联的所有部门信息")
     public ApiResult allDepts(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.deptService.findAllByRoleId(id));
     }
 
-    @GetMapping(value = "all-role-groups")
+    @GetMapping(value = "all-role-groups", name = "根据角色ID，查询该角色直接关联的所有角色组信息")
     public ApiResult allGroups(HttpServletRequest request, String id) {
         return ApiResultWrapper.success(this.groupService.findAllRoleGroupByRoleId(id));
     }

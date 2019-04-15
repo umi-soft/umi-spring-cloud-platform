@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-01-16
  */
 @RestController
-@RequestMapping("/admin/role-group")
+@RequestMapping(value = "/admin/role-group", name = "角色与角色组中间表控制器")
 public class RRoleGroupController extends UmiRController<IRRoleGroupService, RRoleGroup> {
     public RRoleGroupController() {
         this.mappingFields.add("groupId");
