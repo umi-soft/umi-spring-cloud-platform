@@ -3,7 +3,7 @@ package cn.umisoft.feign.remote.fallback;
 import cn.umisoft.feign.remote.SystemAdminAPI;
 import cn.umisoft.util.api.ApiResult;
 import cn.umisoft.util.api.ApiResultWrapper;
-import cn.umisoft.util.enums.MicroServiceEnum;
+import cn.umisoft.util.enums.MicroService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import feign.hystrix.FallbackFactory;
@@ -24,19 +24,19 @@ public class SystemAdminAPIFallback implements FallbackFactory<SystemAdminAPI> {
 
             @Override
             public ApiResult<JSONArray> getUserPermissions() {
-                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroServiceEnum.SYSTEM_ADMIN.name, throwable.getMessage()));
+                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroService.SYSTEM_ADMIN.name, throwable.getMessage()));
                 return ApiResultWrapper.unknown();
             }
 
             @Override
             public ApiResult<JSONObject> getAllPlatformPermissions() {
-                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroServiceEnum.SYSTEM_ADMIN.name, throwable.getMessage()));
+                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroService.SYSTEM_ADMIN.name, throwable.getMessage()));
                 return ApiResultWrapper.unknown();
             }
 
             @Override
             public ApiResult<JSONObject> initMicroServiceSecurity(@RequestBody List<Map<String, String>> authorities) {
-                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroServiceEnum.SYSTEM_ADMIN.name, throwable.getMessage()));
+                log.error(String.format("服务[%s]调用错误，错误信息：\n%s", MicroService.SYSTEM_ADMIN.name, throwable.getMessage()));
                 return ApiResultWrapper.unknown();
             }
         };

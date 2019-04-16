@@ -2,7 +2,7 @@ package cn.umisoft.web;
 
 import cn.umisoft.feign.remote.SystemAdminAPI;
 import cn.umisoft.util.context.UmiUserContextHolder;
-import cn.umisoft.util.enums.UmiBoolean;
+import cn.umisoft.util.enums.Boolean;
 import cn.umisoft.util.jwt.JwtProperties;
 import cn.umisoft.util.jwt.JwtUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -55,7 +55,7 @@ public class RequestMappingApplicationRunner implements ApplicationRunner {
                 map.put("id", id);
                 map.put("serviceId", serviceName);
                 map.put("securityDef", p);
-                map.put("fromSystem", UmiBoolean.TRUE.toString());
+                map.put("fromSystem", Boolean.TRUE.getKey());
                 map.put("name", mappingInfo.getName());
                 map.put("remark", mappingInfo.toString());
                 authoritieMap.put(id, map);

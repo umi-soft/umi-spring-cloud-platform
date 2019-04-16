@@ -5,7 +5,7 @@ import cn.umisoft.admin.entity.TSecurity;
 import cn.umisoft.admin.mapper.TSecurityMapper;
 import cn.umisoft.admin.repository.TSecurityRepository;
 import cn.umisoft.admin.service.ITSecurityService;
-import cn.umisoft.util.enums.UmiBoolean;
+import cn.umisoft.util.enums.Boolean;
 import cn.umisoft.web.service.impl.UmiServiceImpl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -36,7 +35,7 @@ public class TSecurityServiceImpl extends UmiServiceImpl<TSecurityMapper, TSecur
     public void initAuthorities(List<TSecurity> entities) {
         Map<String, TSecurity> history = new HashMap<String, TSecurity>();
         // collect(Collectors.toList()) 最后一行一定要加，作为消费者消费数据，被消费，相关代码才会被执行
-        this.baseMapper.selectList((new QueryWrapper<TSecurity>()).eq("FROM_SYSTEM", UmiBoolean.TRUE.getId())).stream().filter(s -> {
+        this.baseMapper.selectList((new QueryWrapper<TSecurity>()).eq("FROM_SYSTEM", Boolean.TRUE.getKey())).stream().filter(s -> {
             history.put(s.getId(), s);
             return true;
         }).collect(Collectors.toList());

@@ -5,6 +5,7 @@ import cn.umisoft.admin.mapper.TDictionaryMapper;
 import cn.umisoft.admin.repository.TDictionaryRepository;
 import cn.umisoft.admin.service.ITDictionaryService;
 import cn.umisoft.web.service.impl.UmiServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @since 2019-01-21
  */
 @Service
+@Slf4j
 public class TDictionaryServiceImpl extends UmiServiceImpl<TDictionaryMapper, TDictionaryRepository, TDictionary> implements ITDictionaryService {
 
 }
