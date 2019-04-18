@@ -9,22 +9,29 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = 510L;
     private final Object principal;
+    private final Object credentials;
 
-    public JwtAuthenticationToken(Object principal) {
+    public JwtAuthenticationToken(Object credentials) {
+        this(null, credentials);
+    }
+
+    public JwtAuthenticationToken(Object principal, Object credentials) {
         super((Collection)null);
-        this.principal = principal;
+        this.principal = null;
+        this.credentials = credentials;
         this.setAuthenticated(false);
     }
 
-    public JwtAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
+        this.credentials = credentials;
         super.setAuthenticated(true);
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return this.credentials;
     }
 
     @Override

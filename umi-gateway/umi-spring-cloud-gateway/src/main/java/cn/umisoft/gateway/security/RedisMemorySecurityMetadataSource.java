@@ -43,9 +43,9 @@ public class RedisMemorySecurityMetadataSource {
     }
 
 
-    public void initResourceMap(boolean refresh){
+    public void initResourceMap(boolean force){
         JSONObject permissions = null;
-        if (refresh || authorityMap == null || authorityMap.size() == 0) {
+        if (force || authorityMap == null || authorityMap.size() == 0) {
             this.authorityMap = new HashMap<String, Set<SecurityConfig>>();
             permissions = getPlatformPermissions();
         }

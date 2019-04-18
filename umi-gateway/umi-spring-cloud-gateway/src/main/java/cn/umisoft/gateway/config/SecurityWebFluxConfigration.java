@@ -1,8 +1,9 @@
 package cn.umisoft.gateway.config;
 
 import cn.umisoft.gateway.security.*;
+import cn.umisoft.gateway.security.authentication.HttpBasicServerAuthenticationEntryPoint;
+import cn.umisoft.gateway.security.authentication.ServerAuthenticationEntryPointFailureHandler;
 import cn.umisoft.gateway.security.authentication.jwt.JwtAuthenticationConverter;
-import cn.umisoft.gateway.security.authentication.jwt.JwtAuthenticationTokenProvider;
 import cn.umisoft.gateway.security.authentication.jwt.JwtReactiveAuthenticationManager;
 import cn.umisoft.gateway.security.authentication.jwt.JwtReactiveUserDetailsService;
 import cn.umisoft.gateway.security.authorization.AuthorityReactiveAuthorizationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
+import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 import org.springframework.security.web.server.util.matcher.NegatedServerWebExchangeMatcher;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 
@@ -40,7 +42,7 @@ public class SecurityWebFluxConfigration {
 
         log.info("正在初始化 ServerHttpSecurity...");
         http.httpBasic().disable()
-            .csrf().disable()  //CRSF禁用，因为不使用session
+            .csrf().disable()  //CRSF禁用
             .formLogin().disable() //禁用form登录
             .headers()
                 .frameOptions().disable()
@@ -50,10 +52,10 @@ public class SecurityWebFluxConfigration {
             .and()
                 .authorizeExchange()
                 .matchers(PathPatternsServerWebExchangeMatcher.creator(jwtProperties.getExcludePathPatterns())).permitAll()
-//                .pathMatchers(jwtProperties.getExcludePathPatterns()).permitAll()
                 .pathMatchers("/**").access(authorityReactiveAuthorizationManager())
             .and()
-            .addFilterAt(authenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION);
+                .addFilterAt(authenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
+                .exceptionHandling().authenticationEntryPoint(new HttpBasicServerAuthenticationEntryPoint());
         log.info("ServerHttpSecurity 初始化完成");
         return http.build();
     }
@@ -66,11 +68,11 @@ public class SecurityWebFluxConfigration {
     public AuthenticationWebFilter authenticationWebFilter() {
         log.info("正在初始化 AuthenticationWebFilter...");
         AuthenticationWebFilter authenticationWebFilter = new AuthenticationWebFilter(delegatingReactiveAuthenticationManager());
-        authenticationWebFilter.setServerAuthenticationConverter(new JwtAuthenticationConverter(jwtAuthenticationTokenProvider()));
+        authenticationWebFilter.setServerAuthenticationConverter(new JwtAuthenticationConverter());
         NegatedServerWebExchangeMatcher negateWhiteList = new NegatedServerWebExchangeMatcher(ServerWebExchangeMatchers.pathMatchers(jwtProperties.getExcludePathPatterns()));
         authenticationWebFilter.setRequiresAuthenticationMatcher(negateWhiteList);
-//        authenticationWebFilter.setSecurityContextRepository(new WebSessionServerSecurityContextRepository());
-//        authenticationWebFilter.setAuthenticationFailureHandler(responseError());
+        authenticationWebFilter.setSecurityContextRepository(new WebSessionServerSecurityContextRepository());
+        authenticationWebFilter.setAuthenticationFailureHandler(authenticationEntryPointFailureHandler());
         log.info("AuthenticationWebFilter 初始化完成");
         return authenticationWebFilter;
     }
@@ -89,15 +91,6 @@ public class SecurityWebFluxConfigration {
         return authenticationManager;
     }
     /**
-     * @description: <p>JWT 自定义生成器</p>
-     * @author: hujie@umisoft.cn
-     * @date: 2019/4/10 7:40 PM
-     */
-    @Bean
-    public JwtAuthenticationTokenProvider jwtAuthenticationTokenProvider() {
-        return new JwtAuthenticationTokenProvider();
-    }
-    /**
      * @description: <p>系统管理服务用户名和密码认证 UserDetails</p>
      * @author: hujie@umisoft.cn
      */
@@ -105,7 +98,10 @@ public class SecurityWebFluxConfigration {
     public JwtReactiveUserDetailsService jwtReactiveUserDetailsService() {
         return new JwtReactiveUserDetailsService();
     }
-
+    @Bean
+    public ServerAuthenticationEntryPointFailureHandler authenticationEntryPointFailureHandler() {
+        return new ServerAuthenticationEntryPointFailureHandler();
+    }
     /**
      * @description: <p>API级别授权管理器</p>
      * @author: hujie@umisoft.cn

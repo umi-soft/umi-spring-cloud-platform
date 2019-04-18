@@ -6,13 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.util.Assert;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 
 public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationManager {
 
     private final ReactiveUserDetailsService userDetailsService;
-    private Scheduler scheduler = Schedulers.parallel();
 
     public JwtReactiveAuthenticationManager(ReactiveUserDetailsService userDetailsService){
         Assert.notNull(userDetailsService, "userDetailsService cannot be null");
@@ -21,13 +18,13 @@ public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationM
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
-        return this.userDetailsService.findByUsername((String)authentication.getPrincipal()).filter((u) -> {
+        return this.userDetailsService.findByUsername((String)authentication.getCredentials()).filter((u) -> {
             return u.isEnabled();
         }).switchIfEmpty(Mono.defer(() -> {
-            return Mono.error(new BadCredentialsException("Invalid Credentials"));
+            return Mono.error(new BadCredentialsException("非法的token信息"));
         })).map((u) -> {
-            Authentication a = new JwtAuthenticationToken(u.getUsername(), u.getAuthorities());
-            return a;
+            // 将认证使用的token记录在credentials中
+            return new JwtAuthenticationToken(u.getUsername(), authentication.getCredentials(), u.getAuthorities());
         });
     }
 }

@@ -13,6 +13,7 @@ logging:
             sentinel: debug
             nacos: debug
           gateway: debug
+        security: debug
 umisoft:
   gateway:
 

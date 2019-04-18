@@ -12,15 +12,9 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class JwtAuthenticationConverter implements ServerAuthenticationConverter {
 
-    private final JwtAuthenticationTokenProvider authenticationTokenProvider;
-
-    public JwtAuthenticationConverter(JwtAuthenticationTokenProvider authenticationTokenProvider) {
-        this.authenticationTokenProvider = authenticationTokenProvider;
-    }
-
     private Mono<String> resolveToken(ServerWebExchange exchange) {
-        log.debug("exchange request path: {}", exchange.getRequest().getPath());
         String token = getToken(exchange.getRequest());
+        log.debug(String.format("开始从请求%s中获取token", exchange.getRequest().getPath()));
         if (token != null && token.startsWith(JwtUtils.JWT_PREFIX)) {
             return Mono.just(token)
                     .filter(t -> t.startsWith(JwtUtils.JWT_PREFIX))
@@ -31,8 +25,9 @@ public class JwtAuthenticationConverter implements ServerAuthenticationConverter
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
+        log.debug("JwtAuthenticationConverter.convert准备获取token，生成并返回JwtAuthenticationToken");
         return resolveToken(exchange)
-                .map(authenticationTokenProvider::getAuthentication);
+                .map(token -> new JwtAuthenticationToken(token));
     }
 
     private String getToken(ServerHttpRequest request) {
