@@ -7,6 +7,7 @@ import cn.umisoft.gateway.security.authentication.jwt.JwtAuthenticationConverter
 import cn.umisoft.gateway.security.authentication.jwt.JwtReactiveAuthenticationManager;
 import cn.umisoft.gateway.security.authentication.jwt.JwtReactiveUserDetailsService;
 import cn.umisoft.gateway.security.authorization.AuthorityReactiveAuthorizationManager;
+import cn.umisoft.gateway.security.authorization.HttpBasicServerAccessDeniedHandler;
 import cn.umisoft.util.jwt.JwtProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,9 @@ public class SecurityWebFluxConfigration {
                 .pathMatchers("/**").access(authorityReactiveAuthorizationManager())
             .and()
                 .addFilterAt(authenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
-                .exceptionHandling().authenticationEntryPoint(new HttpBasicServerAuthenticationEntryPoint());
+                .exceptionHandling()
+                    .authenticationEntryPoint(new HttpBasicServerAuthenticationEntryPoint())
+                    .accessDeniedHandler(new HttpBasicServerAccessDeniedHandler());
         log.info("ServerHttpSecurity 初始化完成");
         return http.build();
     }

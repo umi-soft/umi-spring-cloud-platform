@@ -137,7 +137,7 @@ public class ApiResultWrapper {
     }
 
     public static ApiResult permissionDenied(){
-        return new ApiResult(ApiResultCode.PERMISSION_DENIED, "回话非法");
+        return new ApiResult(ApiResultCode.PERMISSION_DENIED, "权限不足");
     }
 
     public static ApiResult permissionDenied(Object data){
